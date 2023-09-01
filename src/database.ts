@@ -4,7 +4,7 @@ export { TUser } from "./types";
 
 export const users: TUser[] = [
   {
-    id: "Joao78",
+    id: "Joao788",
     name: "João Lucas",
     email: "teste@example.com",
     password: 12345,
@@ -12,7 +12,7 @@ export const users: TUser[] = [
   },
 
   {
-    id: "Lucas78",
+    id: "Lucas7852",
     name: "Lucas",
     email: "teste@example.com",
     password: 54321,
@@ -22,7 +22,7 @@ export const users: TUser[] = [
 
 export const products: TProducts[] = [
   {
-    id: "jl78",
+    id: "jl78255",
     name: "Cadeira",
     price: 50,
     description: "nao sei ainda",
@@ -30,7 +30,7 @@ export const products: TProducts[] = [
   },
 
   {
-    id: "lu78",
+    id: "lu785555",
     name: "Mesa",
     price: 70,
     description: "nao sei ainda",
