@@ -37,3 +37,39 @@ export const products: TProducts[] = [
     imageUrl: "http://",
   },
 ];
+
+// criação novo usuario
+export function createUser(id: string, name: string, email: string, password: number): string {
+
+  const createdAt = new Date().toISOString()
+  const newUser:  TUser = { id, name, email, password, createdAt }
+  users.push(newUser)
+  return "Cadastro realizado com sucesso"
+}
+
+// busca todos usuarios
+export function getAllUsers(): TUser[] {
+  return users
+}
+
+// cria novo produto
+export function createProduct(id: string, name: string, price: number, description: string, imageUrl: string): string {
+  const newProduct: TProducts = {id, name, price, description, imageUrl}
+  products.push(newProduct)
+  return "Produto cadastrado com sucesso"
+}
+
+// busca todos produtos
+export function getAllProducts () : TProducts[] {
+  return products
+}
+
+
+
+// busca produtos por nome 
+export function searchProductsByName(name: string): TProducts[] {
+
+  return products.filter(product => product.name.toLowerCase().includes(name.toLowerCase()))
+}
+
+
