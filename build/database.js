@@ -33,6 +33,7 @@ exports.products = [
         imageUrl: "http://",
     },
 ];
+// criação novo usuario
 function createUser(id, name, email, password) {
     const createdAt = new Date().toISOString();
     const newUser = { id, name, email, password, createdAt };
@@ -40,20 +41,24 @@ function createUser(id, name, email, password) {
     return "Cadastro realizado com sucesso";
 }
 exports.createUser = createUser;
+// busca todos usuarios
 function getAllUsers() {
     return exports.users;
 }
 exports.getAllUsers = getAllUsers;
+// cria novo produto
 function createProduct(id, name, price, description, imageUrl) {
     const newProduct = { id, name, price, description, imageUrl };
     exports.products.push(newProduct);
     return "Produto cadastrado com sucesso";
 }
 exports.createProduct = createProduct;
+// busca todos produtos
 function getAllProducts() {
     return exports.products;
 }
 exports.getAllProducts = getAllProducts;
+// busca produtos por nome 
 function searchProductsByName(name) {
     return exports.products.filter(product => product.name.toLowerCase().includes(name.toLowerCase()));
 }
