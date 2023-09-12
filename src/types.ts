@@ -13,3 +13,6 @@ export type TUser = {
     description: string;
     imageUrl: string;
   };
+
+
+  
