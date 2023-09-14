@@ -18,6 +18,20 @@ export const users: TUser[] = [
     password: 54321,
     createdAt: new Date().toISOString(),
   },
+  {
+    id: "Maria7888",
+    name: "Maria",
+    email: "teste@example.com",
+    password: 5432155,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: "Dani7888",
+    name: "Dani",
+    email: "teste@example.com",
+    password: 54325551,
+    createdAt: new Date().toISOString(),
+  },
 ];
 
 export const products: TProducts[] = [
@@ -33,6 +47,13 @@ export const products: TProducts[] = [
     id: "lu785555",
     name: "Mesa",
     price: 70,
+    description: "nao sei ainda",
+    imageUrl: "http://",
+  },
+  {
+    id: "tell299",
+    name: "Telefone",
+    price: 799,
     description: "nao sei ainda",
     imageUrl: "http://",
   },
