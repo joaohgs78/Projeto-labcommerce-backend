@@ -151,7 +151,7 @@ app.post("/users", (req: Request, res: Response): void => {
       name,
       email,
       password,
-      createdAt,
+      createdAt: new Date().toISOString()
     };
 
     users.push(newUsers);
