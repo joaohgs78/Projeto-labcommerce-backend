@@ -91,9 +91,10 @@ CREATE TABLE purchases (
     product_id TEXT, -- Adicionando a coluna product_id
     product_description TEXT,
     created_at DATETIME DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')),
-    FOREIGN KEY (buyer_id) REFERENCES users(id),
-    FOREIGN KEY (product_id) REFERENCES products(id)
+    FOREIGN KEY (buyer_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
 
 
 DROP TABLE purchases;
@@ -105,9 +106,11 @@ DROP TABLE purchases;
 INSERT INTO purchases (id, buyer_id, total_price, product_id, product_description)
 VALUES 
 ('p001', '001', 75.50, 'p1', 'Descrição produto 1'),  
-('p002', '002', 100.25, 'p2', 'Descrição produto 2');  
+('p002', '002', 100.25, 'p2', 'Descrição produto 2'); 
 
-   
+
+INSERT INTO purchases (id, buyer_id, total_price, product_id, product_description)
+VALUES  ('p003', '003', 500, 'p3', 'Descrição produto 3'); 
 
 -- Selecionando todos os pedidosc
 SELECT * FROM purchases;
@@ -138,7 +141,23 @@ WHERE
     p.id = 'p001';
 
 
+CREATE TABLE purchases_products (
+    purchase_id TEXT NOT NULL,
+    product_id TEXT NOT NULL,
+    quantity INTEGER NOT NULL,
+    FOREIGN KEY (purchase_id) REFERENCES purchases(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
 
 
+DROP TABLE purchases_products
 
+INSERT INTO purchases_products (purchase_id, product_id, quantity)
+VALUES 
+('p001', 'p1', 3),
+('p002', 'p2', 6),
+('p003', 'p3', 9);
 
+SELECT * FROM purchases_products AS purpro
+INNER JOIN purchases AS p ON purpro.purchase_id = p.id
+INNER JOIN products AS pr ON purpro.product_id = pr.id;
