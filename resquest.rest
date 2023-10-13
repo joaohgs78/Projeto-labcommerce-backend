@@ -1,0 +1,84 @@
+GET http://localhost:3003/users
+###
+
+GET http://localhost:3003/products
+###
+
+GET http://localhost:3003/products/search?q=Produto 5
+###
+
+POST http://localhost:3003/users
+Content-Type: application/json
+
+{
+  "id": "u009",
+  "name": "JoaolLucaslimaDev",
+  "email": "joaolLucaslimadev@email.com",
+  "password": "joaoL8lucasdev00"
+}
+
+###
+
+POST http://localhost:3003/products
+Content-Type: application/json
+
+{
+    "id": "p7",
+    "name": "Teclado gamer",
+    "price": 200,
+    "description": "Teclado mecânico com numpad",
+    "imageUrl": "https://teste/teste/Tecladogamer/teste"
+}
+###
+
+### Deletar Usuário por ID
+
+DELETE http://localhost:3003/users/001
+Content-Type: application/json
+
+###
+
+
+### Deletar Produto por ID
+
+DELETE http://localhost:3003/products/p5
+Content-Type: application/json
+
+
+
+### Editar produto por ID
+
+# Edição do Produto p1
+PUT http://localhost:3003/products/p1
+Content-Type: application/json
+
+{
+    "name": "Mesa Gamer8",
+    "price": 5050.99,
+    "description": "Mesa gamer top2",
+    "image_url": "https://teste22/teste2/mesagamer/teste"
+}
+###
+
+
+GET  http://localhost:3003/purchases
+###
+
+
+POST http://localhost:3003/purchases
+Content-Type: application/json
+
+  {
+    "id": "p008",
+    "buyer_id": "001",
+    "total_price": 290.99
+  }
+###
+
+
+DELETE http://localhost:3003/purchases/p001
+Content-Type: application/json
+###
+
+
+
