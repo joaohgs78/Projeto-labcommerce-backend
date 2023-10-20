@@ -4,7 +4,7 @@ GET http://localhost:3003/users
 GET http://localhost:3003/products
 ###
 
-GET http://localhost:3003/products/search?q=Produto 5
+GET http://localhost:3003/products/search?q=Produto2
 ###
 
 POST http://localhost:3003/users
@@ -33,7 +33,7 @@ Content-Type: application/json
 
 ### Deletar Usuário por ID
 
-DELETE http://localhost:3003/users/001
+DELETE http://localhost:3003/users/004
 Content-Type: application/json
 
 ###
@@ -49,14 +49,14 @@ Content-Type: application/json
 ### Editar produto por ID
 
 # Edição do Produto p1
-PUT http://localhost:3003/products/p1
+PUT http://localhost:3003/products/p3
 Content-Type: application/json
 
 {
-    "name": "Mesa Gamer8",
-    "price": 5050.99,
-    "description": "Mesa gamer top2",
-    "image_url": "https://teste22/teste2/mesagamer/teste"
+    "name": "Mesa Gamer10",
+    "price": 499.99,
+    "description": "Mesa gamer top10",
+    "image_url": "https://teste2103/teste23/mesagamer3/teste"
 }
 ###
 
@@ -69,16 +69,21 @@ POST http://localhost:3003/purchases
 Content-Type: application/json
 
   {
-    "id": "p008",
-    "buyer_id": "001",
-    "total_price": 290.99
+    "id": "p021",  
+    "buyer_id": "003", 
+    "id_product": "p3", 
+    "quantity": 3 
   }
 ###
 
 
-DELETE http://localhost:3003/purchases/p001
+DELETE http://localhost:3003/purchases/p021
 Content-Type: application/json
 ###
 
 
+# GET /purchases/:id
+GET http://localhost:3003/purchases/p012
+Content-Type: application/json
+###
 
