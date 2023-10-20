@@ -75,7 +75,7 @@ Content-Type: application/json
     "quantity": 3 
   }
 ###
-
+vv
 
 DELETE http://localhost:3003/purchases/p021
 Content-Type: application/json

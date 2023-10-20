@@ -14,8 +14,6 @@ import { TProducts } from "./types";
 import { db } from "./database/knex";
 const { format } = require("date-fns-tz");
 
-
-
 const app = express();
 
 app.use(express.json());
@@ -48,7 +46,6 @@ app.get("/users", async (req, res) => {
   }
 });
 
-
 app.get("/products", async (req, res) => {
   try {
     const products = await db.select().from("products");
@@ -58,9 +55,6 @@ app.get("/products", async (req, res) => {
     res.status(500).send("Erro ao buscar os produtos");
   }
 });
-
-
-
 
 app.get("/products/search", async (req, res) => {
   try {
@@ -88,9 +82,7 @@ app.get("/products/search", async (req, res) => {
   }
 });
 
-
 //3
-
 
 app.post("/users", async (req, res) => {
   try {
@@ -116,7 +108,10 @@ app.post("/users", async (req, res) => {
       return;
     }
 
-    const userWithSameEmail = await db.select().from("users").where("email", email);
+    const userWithSameEmail = await db
+      .select()
+      .from("users")
+      .where("email", email);
 
     if (userWithSameEmail.length > 0) {
       res.status(400).send("Já existe uma conta com o mesmo e-mail.");
@@ -133,20 +128,16 @@ app.post("/users", async (req, res) => {
       name,
       email,
       password,
-      created_at: currentDatetime
+      created_at: currentDatetime,
     });
 
     console.log("Novo usuário registrado:", { id, name, email });
     res.status(201).send("Usuário registrado com sucesso");
-
   } catch (error) {
     console.error("Erro:", error);
     res.status(500).send("Erro ao registrar usuário");
   }
 });
-
-
-
 
 app.post("/products", async (req, res) => {
   try {
@@ -198,8 +189,6 @@ app.post("/products", async (req, res) => {
   }
 });
 
-
-
 app.delete("/users/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -220,26 +209,18 @@ app.delete("/users/:id", async (req, res) => {
   }
 });
 
-
-
-
-
-
-
 app.delete("/products/:id", async (req, res) => {
   try {
     const id = req.params.id;
 
-    const product = await db.raw('SELECT * FROM products WHERE id = ?', [id]);
-
-   
+    const product = await db.raw("SELECT * FROM products WHERE id = ?", [id]);
 
     if (product[0].length === 0) {
       res.status(404).send({ message: `Não existe uma conta com o id ${id}` });
       return;
     }
 
-    await db.raw('DELETE FROM products WHERE id = ?', [id]);
+    await db.raw("DELETE FROM products WHERE id = ?", [id]);
 
     res.status(200).send({ message: "Produto deletado com sucesso" });
   } catch (error) {
@@ -248,9 +229,6 @@ app.delete("/products/:id", async (req, res) => {
   }
 });
 
-
-
-
 app.put("/products/:id", async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
@@ -258,17 +236,14 @@ app.put("/products/:id", async (req: Request, res: Response) => {
     const newPrice = req.body.price as number | undefined;
     const newDescription = req.body.description as string | undefined;
     const newImageUrl = req.body.imageUrl as string | undefined;
-    
 
-    const product = await db.raw('SELECT * FROM products WHERE id = ?', [id]);
+    const product = await db.raw("SELECT * FROM products WHERE id = ?", [id]);
 
- 
-if (product[0].length === 0) {
-  // O produto não foi encontrado
-  res.status(404).send({ message: `Não existe um produto com o id ${id}` });
-  return;
-}
-
+    if (product[0].length === 0) {
+      // O produto não foi encontrado
+      res.status(404).send({ message: `Não existe um produto com o id ${id}` });
+      return;
+    }
 
     const updatedProduct: any = {};
 
@@ -290,12 +265,14 @@ if (product[0].length === 0) {
       if (validUrlRegex.test(newImageUrl)) {
         updatedProduct.imageUrl = newImageUrl;
       } else {
-        res.status(404).send({ message: "A URL da imagem possui um formato inválido" });
+        res
+          .status(404)
+          .send({ message: "A URL da imagem possui um formato inválido" });
         return;
       }
     }
 
-    await db('products').where('id', id).update(updatedProduct);
+    await db("products").where("id", id).update(updatedProduct);
 
     res.status(200).send({ message: "O item foi alterado com sucesso" });
   } catch (error) {
@@ -306,32 +283,31 @@ if (product[0].length === 0) {
 
 // //Create purchase
 
-
 app.post("/purchases", async (req: Request, res: Response) => {
   try {
     const { id, buyer_id, id_product, quantity } = req.body;
 
-    console.log('@===>>>', id, buyer_id);
+    console.log("@===>>>", id, buyer_id);
 
-    if (typeof id !== 'string' || id.length < 4) {
+    if (typeof id !== "string" || id.length < 4) {
       res.statusCode = 404;
-      throw new Error('O campo do id é obrigatório');
+      throw new Error("O campo do id é obrigatório");
     }
 
-    if (typeof buyer_id !== 'string' || buyer_id.length < 3) {
+    if (typeof buyer_id !== "string" || buyer_id.length < 3) {
       res.statusCode = 404;
-      throw new Error('O campo do buyer id é obrigatório');
+      throw new Error("O campo do buyer id é obrigatório");
     }
 
-    if (typeof id_product !== 'string' || id_product.length < 2) {
+    if (typeof id_product !== "string" || id_product.length < 2) {
       res.statusCode = 404;
-      throw new Error('O campo do preço é obrigatório');
+      throw new Error("O campo do preço é obrigatório");
     }
 
-    const [isPriceProduct] = await db('products').where({id: id_product})
+    const [isPriceProduct] = await db("products").where({ id: id_product });
 
     if (!isPriceProduct) {
-      res.status(404).send('O produto associado não existe');
+      res.status(404).send("O produto associado não existe");
       return;
     }
 
@@ -352,25 +328,21 @@ app.post("/purchases", async (req: Request, res: Response) => {
     await db("purchases").insert(newPurchases);
     await db("purchases_products").insert(newPurchasesProducts);
 
-    res.status(200).send('Produto cadastrado com sucesso');
+    res.status(200).send("Produto cadastrado com sucesso");
   } catch (error) {
     if (error instanceof Error) {
       res.send(error.message);
     }
   }
-}); 
-
-
+});
 
 app.get("/purchases", async (req, res) => {
   try {
-      const result = req.body.purchases
-     
-      
-      const results = await db.select().from("purchases");
-      
-      res.status(200).send(results);
-      
+    const result = req.body.purchases;
+
+    const results = await db.select().from("purchases");
+
+    res.status(200).send(results);
   } catch (error) {
     if (error instanceof Error) {
       res.send(error.message);
@@ -379,7 +351,6 @@ app.get("/purchases", async (req, res) => {
     }
   }
 });
-
 
 app.put("/products/:id", async (req: Request, res: Response) => {
   try {
@@ -390,8 +361,6 @@ app.put("/products/:id", async (req: Request, res: Response) => {
     const newPrice = req.body.newPrice as number | undefined;
     const newDescription = req.body.newDescription as string | undefined;
     const newImageUrl = req.body.newImageUrl as string | undefined;
-
-    
 
     const [product] = await db.raw("SELECT * FROM products WHERE id = ?", [id]);
 
@@ -446,10 +415,6 @@ app.put("/products/:id", async (req: Request, res: Response) => {
   }
 });
 
-
-
-
-
 app.delete("/purchases/:id", async (req: Request, res: Response) => {
   try {
     const idToDel: string = req.params.id;
@@ -477,7 +442,6 @@ app.delete("/purchases/:id", async (req: Request, res: Response) => {
     }
   }
 });
-
 
 app.get("/purchases/:id", async (req, res) => {
   try {
@@ -528,6 +492,3 @@ app.get("/purchases/:id", async (req, res) => {
     res.status(500).send("Erro ao buscar informações do pedido");
   }
 });
-
-
-
