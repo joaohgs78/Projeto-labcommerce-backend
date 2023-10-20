@@ -1,4 +1,7 @@
 Projeto Backend - Labecommerce
+
+
+
 📝 Descrição
 API de gestão de clientes (users), produtos (products) e compras (purchases) realizadas no Labecommerce. É uma aplicação back-end de servidor express com banco de dados SQLite3. 
 
